@@ -20,7 +20,7 @@ then
         echo "Uninstalling MYSQL ... SUCCESS"
     fi
 else    
-    echo "MySQL already installed"
+    echo "MySQL already uninstalled"
 fi
 
 
@@ -37,7 +37,7 @@ then
         echo "Uninstalling Git ... SUCCESS"
     fi
 else
-    echo "Already git installed"
+    echo "Already git uninstalled"
 
 fi
 
