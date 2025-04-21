@@ -29,7 +29,7 @@ then
     dnf install mysql -y
     validate $? "Installing MYSQL"
 else
-    echo "$G MYSQL already installed $N"
+    echo -e "$G MYSQL already installed $N"
 fi
 
 dnf installed list nginx
@@ -38,6 +38,6 @@ then
     dnf install nginx -y
     validate $? "Installing Nginx"
 else
-    echo "$G NGINX already installed $N"
+    echo -e "$G NGINX already installed $N"
 fi
 
