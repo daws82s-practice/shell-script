@@ -4,40 +4,40 @@ USERID=$(id -u)
 R="\e[31m"
 G="\e[32m"
 Y="\e[33m"
+N="\e[0m"
 
-VALIDATE(){
+
+validate(){
     if [ $1 -ne 0 ]
     then
-        echo -e "$2 ... $R FAILURE"
+        echo -e "$2 .... $R FAILED"
         exit 1
     else
-        echo -e "$2 ... $G SUCCESS"
+        echo -e "$2 .... $G SUCCESS"
     fi
 }
 
 if [ $USERID -ne 0 ]
 then
-    echo "ERROR:: You must have sudo access to execute this script"
-    exit 1 #other than 0
+    echo -e " $R ERROR :: Please run this script with ROOT access"
+    exit 1
 fi
 
-dnf list installed mysql
-
-if [ $? -ne 0 ]
-then # not installed
-    dnf install mysql -y
-    VALIDATE $? "Installing MySQL"
-else
-    echo -e "MySQL is already ... $Y INSTALLED"
-fi
-
-
-dnf list installed git
-
+dnf installed list mysql
 if [ $? -ne 0 ]
 then
-    dnf install git -y
-    VALIDATE $? "Installing Git"
+    dnf install mysql -y
+    validate $? "Installing MYSQL"
 else
-    echo -e "Git is already ... $Y INSTALLED"
+    echo -e "$G MYSQL already installed"
 fi
+
+dnf installed list nginx
+if [ $? -ne 0 ]
+then
+    dnf install nginx -y
+    validate $? "Installing Nginx"
+else
+    echo -e "$G NGINX already installed"
+fi
+
