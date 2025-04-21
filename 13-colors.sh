@@ -10,16 +10,16 @@ N="\e[0m"
 validate(){
     if [ $1 -ne 0 ]
     then
-        echo -e "$2 .... $R FAILED $N"
+        echo -e "$2 .... $R FAILED"
         exit 1
     else
-        echo -e "$2 .... $G SUCCESS $N"
+        echo -e "$2 .... $G SUCCESS"
     fi
 }
 
 if [ $USERID -ne 0 ]
 then
-    echo -e " $R ERROR :: Please run this script with ROOT access $N"
+    echo -e " $R ERROR :: Please run this script with ROOT access"
     exit 1
 fi
 
@@ -29,7 +29,7 @@ then
     dnf install mysql -y
     validate $? "Installing MYSQL"
 else
-    echo -e "$G MYSQL already installed $N"
+    echo -e "$G MYSQL already installed"
 fi
 
 dnf installed list nginx
@@ -38,6 +38,6 @@ then
     dnf install nginx -y
     validate $? "Installing Nginx"
 else
-    echo -e "$G NGINX already installed $N"
+    echo -e "$G NGINX already installed"
 fi
 
