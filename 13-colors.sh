@@ -1,10 +1,10 @@
 #!/bin/bash
 
 USERID=$(id -u)
-R = \e[31m
-G = \e[32m
-Y = \e[33m
-N = \e[0m
+R="\e[31m"
+G="\e[32m"
+Y="\e[33m"
+N="\e[0m"
 
 
 validate(){
@@ -19,7 +19,7 @@ validate(){
 
 if [ $USERID -ne 0 ]
 then
-    echo "ERROR :: Please run this script with ROOT access"
+    echo -e " $R ERROR :: Please run this script with ROOT access $N"
     exit 1
 fi
 
@@ -29,7 +29,7 @@ then
     dnf install mysql -y
     validate $? "Installing MYSQL"
 else
-    echo "MYSQL already installed"
+    echo "$G MYSQL already installed $N"
 fi
 
 dnf installed list nginx
@@ -38,6 +38,6 @@ then
     dnf install nginx -y
     validate $? "Installing Nginx"
 else
-    echo "NGINX already installed"
+    echo "$G NGINX already installed $N"
 fi
 
