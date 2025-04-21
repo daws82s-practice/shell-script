@@ -1,6 +1,15 @@
 #!/bin/bash
 
 USERID=$(id -u)
+validate(){
+    if [ $1 -ne 0 ]
+    then
+        echo "$2 .... FAILED"
+        exit 1
+    else
+        echo "$2 .... SUCCESS"
+    fi
+}
 
 if [ $USERID -ne 0 ]
 then
@@ -12,13 +21,7 @@ dnf installed list mysql
 if [ $? -ne 0 ]
 then
     dnf install mysql -y
-    if [ $? -ne 0 ]
-    then
-        echo "Installing MYSQL .... FAILED"
-        exit 1
-    else
-        echo "Installing MYSQL .... SUCCESS"
-    fi
+    validate $? "Installing MYSQL"
 else
     echo "MYSQL already installed"
 fi
@@ -27,13 +30,7 @@ dnf installed list nginx
 if [ $? -ne 0 ]
 then
     dnf install nginx -y
-    if [ $? -ne 0 ]
-    then
-        echo "Installing NGINX .... FAILED"
-        exit 1
-    else
-        echo "Installing NGINX .... SUCCESS"
-    fi
+    validate $? "Installing Nginx"
 else
     echo "NGINX already installed"
 fi
