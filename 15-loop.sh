@@ -6,7 +6,7 @@
 # echo 4
 # echo 5
 
-for i in {0...100}
+for i in {0..100}
 do
     echo $i
 done
