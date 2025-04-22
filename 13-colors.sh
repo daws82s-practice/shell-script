@@ -17,11 +17,17 @@ validate(){
     fi
 }
 
-if [ $USERID -ne 0 ]
-then
-    echo -e " $R ERROR :: Please run this script with ROOT access"
-    exit 1
-fi
+CHECK_ROOT() {
+    if [ $USERID -ne 0 ]
+    then
+        echo -e " $R ERROR :: Please run this script with ROOT access"
+        exit 1
+    fi
+
+}
+
+CHECK_ROOT
+
 
 dnf installed list mysql
 if [ $? -ne 0 ]
