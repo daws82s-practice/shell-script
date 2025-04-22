@@ -47,4 +47,5 @@ do
         validate $? "Installing $app"
     else
         echo -e "$G $app Installation is Successfull $N"
+    fi
 done
