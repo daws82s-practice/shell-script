@@ -6,6 +6,8 @@ G="\e[32m"
 Y="\e[33m"
 N="\e[0m"
 
+SOURCE_DIR="/home/ec2-user/app-logs"
+
 LOGS_FOLDER="/var/log/shellscript-logs"
 LOG_FILE=$(echo $0 | cut -d "." -f1)
 TIMESTAMP=$(date +%Y-%m-%d-%H-%M-%S)
@@ -30,22 +32,14 @@ CHECK_ROOT() {
 }
 
 echo "Script started executing at: $TIMESTAMP" &>>$LOG_FILE_NAME
-CHECK_ROOT
 
-if [ $USERID -ne 0 ] &>>$LOG_FILE_NAME
-then
-    echo -e " $R ERROR :: Please run this script with ROOT access $N"
-    exit 1
-fi
+FILES_TO_DELETE=$(find $SOURCE_DIR -name "*.log" -mtime +14)
+echo "Files to be deleted: $FILES_TO_DELETE"
 
-for app in $@
+while read -r filepath #here filepath is the variable name, you can give any name
 do
-    dnf list installed $app &>>$LOG_FILE_NAME
-    if [ $? -ne 0 ]
-    then
-        dnf install $app -y &>>$LOG_FILE_NAME
-        validate $? "Installing $app"
-    else
-        echo -e "$G $app Installation is Successfull $N"
-    fi
-done
+    echo "deleting files : $filepath"
+    rm -rf $filepath 
+    echo "deleted files : $filepath
+
+done <<< $FILES_TO_DELETE
